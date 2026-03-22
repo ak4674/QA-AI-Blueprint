@@ -10,38 +10,32 @@ This document outlines the complete technological footprint, UI/UX structure, an
 - **Database (Local-First)**: IndexedDB managed via the `idb` wrapper promise-based library
 - **Icons**: `lucide-react`
 - **Date Utilities**: `date-fns`
-- **Cloud Deployment Configuration**: Built-in `vercel.json` for automated Vercel hosting
+- **Environment**: Optimized for zero-config Vercel deployment with built-in `vercel.json`
 
 ## User Interface & Aesthetic Design (UI/CSS)
-- **Theme**: Futuristic, Agentic Dark Theme (`#0B1120` canvas base) highlighting neon cyan and deep purple accents.
-- **Micro-Animations**: Extensive use of Tailwind's `transition-all`, `hover:scale`, and `opacity` fades. Focus-states are heavily modified with `ring` glows mapping to primary action colors.
+- **Theme**: Futuristic, Agentic Dark Theme (`#0B1120` base) highlighting neon cyan and deep purple accents.
+- **Micro-Animations**: Extensive use of Tailwind's `transition-all`, `hover:scale`, and `opacity` fades.
 - **Glassmorphism**: Modals (`SignInModal`, `LumiModal`) employ `backdrop-blur` techniques mimicking glass physical textures over the DOM.
-- **Responsive Layout**: Sidebar-less, 5-tab horizontal header-driven layout optimized to retain horizontal volume for wide data grids.
+- **Responsive Layout**: 5-tab horizontal header-driven layout optimized for high-density wide data grids.
 
 ## Platform Capabilities & Logic
 
-### 1. Unified Dashboard Tab
-- Algorithmic 'Live' AI Insights via **Lumi AI**.
-- Dynamically scans LocalDB (Companies and Jobs) to construct targeted resume-adaptation suggestions and strategic LinkedIn networking prompts rather than generating static data.
+### 1. Global Intelligence & Routing
+- **Smart Omni-Search**: A cross-entity navigation algorithm that identifies user intent. Pressing **Enter** on a query automatically detects if the target matches a **Network Contact**, **Recruitment Agency**, or **Job/Company**, and instantly navigates the user to the corresponding tab.
+- **Live AI Assistant (Lumi AI)**: A production-grade bridge to the **Pollinations AI** live model. Replaces static mock data with real-time, context-aware career and networking strategy generation via asynchronous REST API fetches.
 
 ### 2. Kanban My Jobs Tab
-- Real-time `Search` and `Filter` hooks directly attached to the Job array map logic.
-- Complete drag-and-drop state lifecycle management.
-- **3-Dots Action Menu**: Hovering over cards reveals instant context menus to systematically route cards through the application lifecycle (`Saved` -> `Applied` -> `Screening` -> `Interviewing` -> `Offer`) or push them into an invisible `Archived` cleanup state.
+- **Real-time Search Filter**: A live React state hook that performs non-destructive filtering against the IndexedDB job array.
+- **3-Dots Action Menu**: A context-aware dropdown enabling rapid Job Lifecycle progression (`Wishlist` -> `Applied` -> `Screening` -> `Interviewing` -> `Offer`) or routing cards to a persistent `Archived` state.
 
-### 3. Entity Pages (Target Companies, Recruitment Agencies, My Network)
-- 3-column responsive flex grid rendering detailed entity cards.
-- Support for extensive internal metadata editing strings (Locations, Networks, Tags, URLs, Notes).
-- Floating `+ Add` modal implementations natively connected to the IndexedDB upgrade lifecycle.
-
-### 4. Authentication (Simulated)
-- Embedded `SignInModal` replicating modern OAuth interactions (Google, GitHub, Email Magic Links).
-- Mounts and persists user credentials (e.g. Anand Kumar) directly into the parent Application Header's state tree.
+### 3. Entity Management & Dashboards
+- **Multi-Store Management**: Support for high-volume entry of Companies, Agencies, and Network Contacts via dedicated responsive grid systems.
+- **Personalized Auth Simulation**: A tailored `SignInModal` pre-configured to mount the **Anand Kumar** (**aky.anand@gmail.com**) profile, establishing a persistent "AK" user session in the application header.
 
 ## Backend / Database Schema (IndexedDB)
-The DB layer (`src/db.ts`) upgraded to version `2.0` automatically constructs the following object stores:
+The DB layer (`src/db.ts`) Version `2.0` automatically constructs the following object stores:
 - **`jobs`**: Maps applications to states (e.g. Job Title, Company, Status, URL, Date, Resume).
 - **`companies`**: Maintains Target Companies.
 - **`agencies`**: Maintains Recruitment Agencies.
-- **`network_contacts`**: Relational mapping tool to tag people against existing Companies/Jobs in a pipeline.
-- **`scraped_jobs`**: Live feed ingestion array for web-matched opportunities.
+- **`network_contacts`**: Relational mapping tool for people/connections.
+- **`scraped_jobs`**: Ingestion array for matched web opportunities.
