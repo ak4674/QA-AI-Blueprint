@@ -3,6 +3,7 @@ import type { NetworkContact, NetworkStatus } from '../types';
 import { getAllNetworkContacts, addNetworkContact } from '../db';
 import { Search, Plus, ExternalLink, Linkedin, MoreVertical, Trash2, ArrowRight } from 'lucide-react';
 import { AddNetworkContactModal } from './AddNetworkContactModal';
+import { LinkedInLoginModal } from './LinkedInLoginModal';
 
 const COLUMNS: { id: NetworkStatus; label: string; color: string }[] = [
   { id: 'Sent', label: 'Sent', color: 'bg-slate-800/80 text-slate-300 border border-slate-700/50' },
@@ -17,6 +18,8 @@ export function MyNetworkTab() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
+  const [isLinkedInConnected, setIsLinkedInConnected] = useState(false);
+  const [isLinkedInLoginOpen, setIsLinkedInLoginOpen] = useState(false);
   
   useEffect(() => {
     getAllNetworkContacts().then(setContacts).catch(console.error);
@@ -45,9 +48,17 @@ export function MyNetworkTab() {
             </h2>
          </div>
          <div className="flex items-center gap-4">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 border border-green-500/50 text-green-400 bg-green-500/10 rounded-md text-sm font-medium hover:bg-green-500/20 transition-colors">
-               <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_5px_currentColor]" /> LinkedIn Connected
-            </button>
+             <button 
+               onClick={() => !isLinkedInConnected && setIsLinkedInLoginOpen(true)}
+               className={`flex items-center gap-1.5 px-3 py-1.5 border rounded-md text-sm font-medium transition-all ${
+                 isLinkedInConnected 
+                   ? 'border-green-500/50 text-green-400 bg-green-500/10' 
+                   : 'border-[#0077b5]/50 text-[#0077b5] bg-[#0077b5]/10 hover:bg-[#0077b5]/20 hover:border-[#0077b5] shadow-[0_0_15px_rgba(0,119,181,0.1)] hover:shadow-[0_0_20px_rgba(0,119,181,0.2)]'
+               }`}
+             >
+                <div className={`w-2 h-2 rounded-full shadow-[0_0_5px_currentColor] ${isLinkedInConnected ? 'bg-green-500 animate-pulse' : 'bg-slate-500'}`} /> 
+                {isLinkedInConnected ? 'LinkedIn Connected' : 'Connect LinkedIn'}
+             </button>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
               <input placeholder="Search network..." className="pl-9 pr-3 py-1.5 text-sm border border-slate-800 rounded-md bg-[#131B2B] text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all" />
@@ -149,6 +160,16 @@ export function MyNetworkTab() {
         <AddNetworkContactModal 
           onClose={() => setIsModalOpen(false)} 
           onSave={handleSave} 
+        />
+      )}
+
+      {isLinkedInLoginOpen && (
+        <LinkedInLoginModal 
+          onClose={() => setIsLinkedInLoginOpen(false)} 
+          onConnect={() => {
+            setIsLinkedInConnected(true);
+            setIsLinkedInLoginOpen(false);
+          }} 
         />
       )}
     </div>
