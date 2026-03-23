@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { NetworkContact, NetworkStatus } from '../types';
 import { getAllNetworkContacts, addNetworkContact } from '../db';
-import { Search, Plus, ExternalLink, Linkedin } from 'lucide-react';
+import { Search, Plus, ExternalLink, Linkedin, MoreVertical, Trash2, ArrowRight } from 'lucide-react';
 import { AddNetworkContactModal } from './AddNetworkContactModal';
 
 const COLUMNS: { id: NetworkStatus; label: string; color: string }[] = [
@@ -16,6 +16,8 @@ export function MyNetworkTab() {
   const [contacts, setContacts] = useState<NetworkContact[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
+  
   useEffect(() => {
     getAllNetworkContacts().then(setContacts).catch(console.error);
   }, []);
@@ -23,6 +25,15 @@ export function MyNetworkTab() {
   const handleSave = async (contact: NetworkContact) => {
     await addNetworkContact(contact);
     setContacts(prev => [...prev, contact]);
+  };
+
+  const handleStatusChange = async (contactId: string, newStatus: NetworkStatus) => {
+    const contact = contacts.find(c => c.id === contactId);
+    if (!contact) return;
+    const updatedContact = { ...contact, status: newStatus };
+    await addNetworkContact(updatedContact); // Upsert
+    setContacts(prev => prev.map(c => c.id === contactId ? updatedContact : c));
+    setActiveMenuId(null);
   };
 
   return (
@@ -63,40 +74,70 @@ export function MyNetworkTab() {
                     </div>
                     
                     <div className="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
-                       {columnContacts.length === 0 ? (
-                         <div className="text-center p-4 text-xs text-slate-500 border border-dashed border-slate-800 rounded-lg">No contacts yet</div>
-                       ) : (
-                         columnContacts.map(contact => (
-                            <div key={contact.id} className="bg-[#0B1120] border border-slate-800 rounded-lg p-3 shadow-md hover:border-slate-700 transition-colors group relative overflow-hidden">
-                                <div className="flex gap-1.5 flex-wrap mb-3 relative z-10">
-                                   {contact.tags.map(tag => (
-                                      <span key={tag} className="text-[9px] font-medium bg-slate-800/80 text-cyan-400 px-2 py-0.5 rounded-md border border-slate-700/50 tracking-wider uppercase">
-                                         {tag}
-                                      </span>
-                                   ))}
-                                </div>
-                                <div className="flex items-start gap-3 relative z-10">
-                                   <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0 ${contact.avatarColor || 'bg-slate-700'}`}>
-                                      {contact.name.charAt(0)}
+                        {columnContacts.length === 0 ? (
+                          <div className="text-center p-4 text-xs text-slate-500 border border-dashed border-slate-800 rounded-lg">No contacts yet</div>
+                        ) : (
+                          columnContacts.map(contact => (
+                             <div key={contact.id} className="bg-[#0B1120] border border-slate-800 rounded-lg p-3 shadow-md hover:border-slate-700 transition-colors group relative overflow-hidden">
+                                 <button 
+                                   onClick={() => setActiveMenuId(activeMenuId === contact.id ? null : contact.id)}
+                                   className="absolute top-2 right-2 p-1 text-slate-500 hover:text-white hover:bg-white/5 rounded-md opacity-0 group-hover:opacity-100 transition-all z-20"
+                                 >
+                                   <MoreVertical size={14} />
+                                 </button>
+
+                                 {activeMenuId === contact.id && (
+                                   <div className="absolute top-8 right-2 w-40 bg-[#131B2B] border border-white/10 rounded-lg shadow-2xl z-30 py-1.5 animate-in fade-in zoom-in duration-200">
+                                      {COLUMNS.find(col => col.id === contact.status)?.id !== 'Rejected' && (
+                                        <button 
+                                          onClick={() => {
+                                             const currentIndex = COLUMNS.findIndex(c => c.id === contact.status);
+                                             if (currentIndex < COLUMNS.length - 1) {
+                                               handleStatusChange(contact.id, COLUMNS[currentIndex+1].id);
+                                             }
+                                          }}
+                                          className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] font-medium text-slate-300 hover:bg-white/5 hover:text-white transition-all"
+                                        >
+                                          <ArrowRight size={12} className="text-cyan-400" />
+                                          Next Stage
+                                        </button>
+                                      )}
+                                      <button className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] font-medium text-red-500 hover:bg-red-500/10 transition-all" onClick={() => setActiveMenuId(null)}>
+                                        <Trash2 size={12} />
+                                        Remove Contact
+                                      </button>
                                    </div>
-                                   <div className="min-w-0 flex-1">
-                                      <h4 className="font-semibold text-sm text-slate-100 truncate flex items-center gap-1.5">
-                                         {contact.name}
-                                         {contact.linkedinUrl && (
-                                            <a href={contact.linkedinUrl} target="_blank" rel="noreferrer" className="text-cyan-500 hover:text-cyan-400 bg-cyan-500/10 p-1 rounded-sm">
-                                               <Linkedin size={10} />
-                                            </a>
-                                         )}
-                                      </h4>
-                                      <p className="text-xs text-slate-400 truncate mt-0.5" title={contact.title}>{contact.title}</p>
-                                      <p className="text-[10px] text-slate-500 truncate mt-1 flex items-center gap-1">
-                                         {contact.company} <ExternalLink size={10} className="text-slate-600" />
-                                      </p>
-                                   </div>
-                                </div>
-                            </div>
-                         ))
-                       )}
+                                 )}
+
+                                 <div className="flex gap-1.5 flex-wrap mb-3 relative z-10">
+                                    {contact.tags.map(tag => (
+                                       <span key={tag} className="text-[9px] font-medium bg-slate-800/80 text-cyan-400 px-2 py-0.5 rounded-md border border-slate-700/50 tracking-wider uppercase">
+                                          {tag}
+                                       </span>
+                                    ))}
+                                 </div>
+                                 <div className="flex items-start gap-3 relative z-10">
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0 ${contact.avatarColor || 'bg-slate-700'}`}>
+                                       {contact.name.charAt(0)}
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                       <h4 className="font-semibold text-sm text-slate-100 truncate flex items-center gap-1.5 pr-4">
+                                          {contact.name}
+                                          {contact.linkedinUrl && (
+                                             <a href={contact.linkedinUrl} target="_blank" rel="noreferrer" className="text-cyan-500 hover:text-cyan-400 bg-cyan-500/10 p-1 rounded-sm">
+                                                <Linkedin size={10} />
+                                             </a>
+                                          )}
+                                       </h4>
+                                       <p className="text-xs text-slate-400 truncate mt-0.5" title={contact.title}>{contact.title}</p>
+                                       <p className="text-[10px] text-slate-500 truncate mt-1 flex items-center gap-1">
+                                          {contact.company} <ExternalLink size={10} className="text-slate-600" />
+                                       </p>
+                                    </div>
+                                 </div>
+                             </div>
+                          ))
+                        )}
                     </div>
                  </div>
                );

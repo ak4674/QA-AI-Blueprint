@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { Job, JobStatus } from '../types';
-import { X } from 'lucide-react';
+import { X, Briefcase, Users } from 'lucide-react';
 
 interface JobModalProps {
   job?: Job | null;
@@ -53,73 +53,103 @@ export function JobModal({ job, onClose, onSave, existingResumes }: JobModalProp
   const formattedDate = new Date(formData.dateApplied || Date.now()).toISOString().split('T')[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/50 transition-opacity">
-      <div className="bg-white dark:bg-gray-900 w-full max-w-md h-full shadow-2xl overflow-y-auto flex flex-col border-l border-gray-200 dark:border-gray-800 animate-slide-in">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-            {job ? 'Edit Job' : 'Add New Job'}
-          </h2>
-          <button onClick={onClose} className="p-2 -mr-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+    <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/60 backdrop-blur-sm transition-opacity">
+      <div className="bg-card w-full max-w-lg h-full shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-y-auto flex flex-col border-l border-white/5 animate-slide-in relative group/modal">
+        <div className="absolute inset-0 bg-neon-blue/2 pointer-events-none opacity-50"></div>
+        
+        <div className="flex items-center justify-between p-6 border-b border-white/5 relative z-10 bg-black/20 backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <div className="bg-neon-blue/10 p-2 rounded-lg border border-neon-blue/20">
+              <Briefcase size={20} className="text-neon-blue" />
+            </div>
+            <h2 className="text-xl font-bold text-white tracking-tight">
+              {job ? 'Edit Job Application' : 'Add New Job'}
+            </h2>
+          </div>
+          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
             <X size={20} />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-5 flex-1 flex flex-col">
-          <div className="space-y-4 flex-1">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Company Name *</label>
-              <input required name="companyName" value={formData.companyName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Acme Corp" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job Title / Role *</label>
-              <input required name="jobTitle" value={formData.jobTitle} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Software Engineer" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status ⚑</label>
-              <select name="status" value={formData.status} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500 outline-none">
-                {STATUSES.map(s => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">LinkedIn / Job URL</label>
-              <input type="url" name="jobUrl" value={formData.jobUrl} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="https://linkedin.com/jobs/..." />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Resume Used</label>
-              <input list="resumes" name="resumeUsed" value={formData.resumeUsed} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Frontend_Resume_v2" />
-              <datalist id="resumes">
-                {existingResumes.map(r => <option key={r} value={r} />)}
-              </datalist>
-            </div>
-
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date Applied</label>
-                <input type="date" name="dateApplied" value={formattedDate} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+        <form onSubmit={handleSubmit} className="p-8 space-y-8 flex-1 flex flex-col relative z-10">
+          <div className="space-y-6 flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-1.5">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Company Name *</label>
+                <input required name="companyName" value={formData.companyName} onChange={handleChange} className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all shadow-inner" placeholder="Acme Corp" />
               </div>
-              <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Salary Range</label>
-                <input name="salaryRange" value={formData.salaryRange} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="$150-180K" />
+
+              <div className="space-y-1.5">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Job Title / Role *</label>
+                <input required name="jobTitle" value={formData.jobTitle} onChange={handleChange} className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all shadow-inner" placeholder="Software Engineer" />
               </div>
             </div>
 
-            <div className="flex-1 min-h-[100px] flex flex-col">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notes</label>
-              <textarea name="notes" value={formData.notes} onChange={handleChange} className="w-full flex-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none" placeholder="Referred by John Doe. HM name is Smith..." />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-1.5">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Status ⚑</label>
+                <select name="status" value={formData.status} onChange={handleChange} className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all appearance-none cursor-pointer">
+                  {STATUSES.map(s => (
+                    <option key={s} value={s} className="bg-slate-900">{s}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Salary Range</label>
+                <input name="salaryRange" value={formData.salaryRange} onChange={handleChange} className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all shadow-inner" placeholder="$150-180K" />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">LinkedIn / Job URL</label>
+              <input type="url" name="jobUrl" value={formData.jobUrl} onChange={handleChange} className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all shadow-inner" placeholder="https://linkedin.com/jobs/..." />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-1.5">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Resume Used</label>
+                <input list="resumes" name="resumeUsed" value={formData.resumeUsed} onChange={handleChange} className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all shadow-inner" placeholder="Frontend_Resume_v2" />
+                <datalist id="resumes">
+                  {existingResumes.map(r => <option key={r} value={r} />)}
+                </datalist>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Date Applied</label>
+                <input type="date" name="dateApplied" value={formattedDate} onChange={handleChange} className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all" />
+              </div>
+            </div>
+
+            <div className="space-y-6 pt-4 border-t border-white/5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-neon-blue flex items-center gap-2">
+                   <Users size={14} />
+                   Networking Connections
+                </h3>
+                <span className="text-[10px] font-bold text-slate-500 uppercase py-1 px-2 rounded bg-white/5">Optional</span>
+              </div>
+              
+              <div className="bg-black/20 border border-white/5 rounded-xl p-4 space-y-3">
+                 <p className="text-[11px] text-slate-400 leading-relaxed italic border-l-2 border-neon-blue/30 pl-3">
+                   Link a contact from your network to this job to track referrals and follow-ups.
+                 </p>
+                 <button type="button" className="w-full py-2.5 rounded-lg border border-dashed border-white/20 text-[10px] font-bold uppercase text-slate-500 hover:border-neon-blue/40 hover:text-neon-blue transition-all">
+                   + Link Network Contact
+                 </button>
+              </div>
+            </div>
+
+            <div className="space-y-1.5 flex-1 min-h-[120px] flex flex-col pt-4">
+              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Notes</label>
+              <textarea name="notes" value={formData.notes} onChange={handleChange} className="w-full flex-1 px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 transition-all resize-none shadow-inner" placeholder="Referred by John Doe. HM name is Smith..." />
             </div>
           </div>
 
-          <div className="pt-4 mt-6 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-gray-900">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div className="pt-6 mt-6 border-t border-white/5 flex justify-end gap-3 sticky bottom-0 bg-card/80 backdrop-blur-md">
+            <button type="button" onClick={onClose} className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">
               Cancel
             </button>
-            <button type="submit" className="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm">
+            <button type="submit" className="px-8 py-2.5 text-xs font-bold uppercase tracking-widest text-white bg-neon-blue/20 border border-neon-blue/50 rounded-xl hover:bg-neon-blue/30 transition-all shadow-[0_0_20px_rgba(0,242,255,0.1)]">
               {job ? 'Save Changes' : 'Create Job'}
             </button>
           </div>
