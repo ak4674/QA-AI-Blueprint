@@ -60,7 +60,7 @@ export function JobCard({ job, onEdit, onDelete, onStatusChange }: JobCardProps)
       <div
         ref={setNodeRef}
         style={style}
-        className="opacity-40 border-2 border-dashed border-cyan-500/50 rounded-lg p-4 bg-[#0B1120] min-h-[140px]"
+        className="opacity-40 border-2 border-dashed border-neon-blue/30 rounded-xl p-4 bg-card/50 min-h-[140px] shadow-[inset_0_0_20px_rgba(0,242,255,0.05)]"
       />
     );
   }
@@ -88,7 +88,7 @@ export function JobCard({ job, onEdit, onDelete, onStatusChange }: JobCardProps)
       {...attributes}
       {...listeners}
       className={cn(
-        "relative bg-[#0B1120] shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-slate-800 rounded-lg p-4 cursor-grab active:cursor-grabbing border-t-[3px] group hover:border-slate-700 transition-colors z-10",
+        "relative bg-card shadow-[0_8px_30px_rgba(0,0,0,0.4)] border border-white/5 rounded-xl p-5 cursor-grab active:cursor-grabbing border-t-[3px] group hover:border-white/10 hover:shadow-[0_0_30px_rgba(0,242,255,0.08)] transition-all z-10",
         statusBorders[job.status]
       )}
     >
@@ -112,13 +112,13 @@ export function JobCard({ job, onEdit, onDelete, onStatusChange }: JobCardProps)
               <MoreVertical size={12} />
             </button>
             {showMenu && (
-              <div className="absolute right-0 top-6 w-36 bg-[#131B2B] border border-slate-700 rounded shadow-[0_0_15px_rgba(0,0,0,0.5)] overflow-hidden z-50 py-1">
+              <div className="absolute right-0 top-8 w-44 bg-card border border-white/10 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] overflow-hidden z-50 py-1.5 backdrop-blur-md">
                 {job.status !== 'Offer' && job.status !== 'Rejected' && job.status !== 'Archived' && (
-                  <button onClick={(e) => { e.stopPropagation(); setShowMenu(false); onStatusChange(job.id, nextPhaseMap[job.status]); }} className="w-full text-left px-3 py-2 text-xs font-semibold text-cyan-400 hover:bg-cyan-500/20 transition-colors">
-                    Move to Next Phase
+                  <button onClick={(e) => { e.stopPropagation(); setShowMenu(false); onStatusChange(job.id, nextPhaseMap[job.status]); }} className="w-full text-left px-4 py-2.5 text-xs font-bold text-neon-blue hover:bg-neon-blue/10 transition-all uppercase tracking-wider">
+                    Next Phase
                   </button>
                 )}
-                <button onClick={(e) => { e.stopPropagation(); setShowMenu(false); onStatusChange(job.id, 'Archived'); }} className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-400 hover:bg-slate-800 transition-colors">
+                <button onClick={(e) => { e.stopPropagation(); setShowMenu(false); onStatusChange(job.id, 'Archived'); }} className="w-full text-left px-4 py-2.5 text-xs font-bold text-slate-500 hover:bg-white/5 transition-all uppercase tracking-wider">
                   Archive Job
                 </button>
               </div>

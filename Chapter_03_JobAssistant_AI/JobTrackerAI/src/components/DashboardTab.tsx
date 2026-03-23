@@ -73,83 +73,93 @@ export function DashboardTab({ onOpenLumi }: { onOpenLumi?: (q?: string) => void
          <p className="text-slate-400">Live data aggregated from your jobs, companies, agencies, and network.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 relative z-10">
          {/* KPI Cards */}
-         <div className="bg-[#131B2B] border border-cyan-500/30 rounded-2xl p-6 shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:border-cyan-400 transition-colors">
-            <div className="flex items-center gap-3 mb-4 text-cyan-400">
+         <div className="bg-card border border-neon-blue/20 rounded-2xl p-6 shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:border-neon-blue/40 transition-all group overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-neon-blue/5 blur-2xl group-hover:bg-neon-blue/10 transition-colors"></div>
+            <div className="flex items-center gap-3 mb-4 text-neon-blue relative z-10">
                <MousePointerClick size={20} />
-               <h3 className="font-medium text-sm">Action Pipeline</h3>
+               <h3 className="font-bold text-xs uppercase tracking-widest pl-1">Action Pipeline</h3>
             </div>
-            <div className="flex justify-between items-end">
+            <div className="flex justify-between items-end relative z-10">
                <div>
-                  <div className="text-3xl font-bold text-slate-100">{appliedCount}</div>
-                  <div className="text-xs text-slate-500 mt-1">Total Applied</div>
+                  <div className="text-4xl font-bold text-white tracking-tight">{appliedCount}</div>
+                  <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Total Applied</div>
                </div>
-               <div className="text-xs text-cyan-400 font-medium bg-cyan-500/10 px-2.5 py-1 rounded-full">+2 this week</div>
+               <div className="text-[10px] text-neon-blue font-bold uppercase tracking-widest bg-neon-blue/10 px-3 py-1 rounded-lg border border-neon-blue/20">+2 this week</div>
             </div>
          </div>
 
-         <div className="bg-[#131B2B] border border-purple-500/30 rounded-2xl p-6 shadow-[0_0_20px_rgba(168,85,247,0.1)] hover:border-purple-400 transition-colors">
-            <div className="flex items-center gap-3 mb-4 text-purple-400">
+         <div className="bg-card border border-purple-500/20 rounded-2xl p-6 shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:border-purple-400/40 transition-all group overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/5 blur-2xl group-hover:bg-purple-500/10 transition-colors"></div>
+            <div className="flex items-center gap-3 mb-4 text-purple-400 relative z-10">
                <Users size={20} />
-               <h3 className="font-medium text-sm">Interviews Active</h3>
+               <h3 className="font-bold text-xs uppercase tracking-widest pl-1">Interviews Active</h3>
             </div>
-            <div className="flex justify-between items-end">
+            <div className="flex justify-between items-end relative z-10">
                <div>
-                  <div className="text-3xl font-bold text-slate-100">{interviewingCount}</div>
-                  <div className="text-xs text-slate-500 mt-1">In progress</div>
+                  <div className="text-4xl font-bold text-white tracking-tight">{interviewingCount}</div>
+                  <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">In progress</div>
                </div>
             </div>
          </div>
 
-         <div className="bg-[#131B2B] border border-green-500/30 rounded-2xl p-6 shadow-[0_0_20px_rgba(34,197,94,0.1)] hover:border-green-400 transition-colors">
-            <div className="flex items-center gap-3 mb-4 text-green-400">
+         <div className="bg-card border border-neon-green/20 rounded-2xl p-6 shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:border-neon-green/40 transition-all group overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-neon-green/5 blur-2xl group-hover:bg-neon-green/10 transition-colors"></div>
+            <div className="flex items-center gap-3 mb-4 text-neon-green relative z-10">
                <Briefcase size={20} />
-               <h3 className="font-medium text-sm">Offers Received</h3>
+               <h3 className="font-bold text-xs uppercase tracking-widest pl-1">Offers Received</h3>
             </div>
-            <div className="flex justify-between items-end">
+            <div className="flex justify-between items-end relative z-10">
                <div>
-                  <div className="text-3xl font-bold text-slate-100">{offerCount}</div>
-                  <div className="text-xs text-slate-500 mt-1">Pending response</div>
+                  <div className="text-4xl font-bold text-white tracking-tight">{offerCount}</div>
+                  <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Pending response</div>
                </div>
             </div>
          </div>
 
-         <div className="bg-[#131B2B] border border-orange-500/30 rounded-2xl p-6 shadow-[0_0_20px_rgba(249,115,22,0.1)] hover:border-orange-400 transition-colors">
-            <div className="flex items-center gap-3 mb-4 text-orange-400">
+         <div className="bg-card border border-orange-500/20 rounded-2xl p-6 shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:border-orange-400/40 transition-all group overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 blur-2xl group-hover:bg-orange-500/10 transition-colors"></div>
+            <div className="flex items-center gap-3 mb-4 text-orange-400 relative z-10">
                <Target size={20} />
-               <h3 className="font-medium text-sm">Network Tracker</h3>
+               <h3 className="font-bold text-xs uppercase tracking-widest pl-1">Network Tracker</h3>
             </div>
-            <div className="flex justify-between items-end">
+            <div className="flex justify-between items-end relative z-10">
                <div>
-                  <div className="text-3xl font-bold text-slate-100">{totalNetwork}</div>
-                  <div className="text-xs text-slate-500 mt-1">Connections</div>
+                  <div className="text-4xl font-bold text-white tracking-tight">{totalNetwork}</div>
+                  <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Connections</div>
                </div>
-               <div className="text-xs text-orange-400 font-medium bg-orange-500/10 px-2.5 py-1 rounded-full">{agencies.length} Agencies</div>
+               <div className="text-[10px] text-orange-400 font-bold uppercase tracking-widest bg-orange-500/10 px-3 py-1 rounded-lg border border-orange-500/20">{agencies.length} Agencies</div>
             </div>
          </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10">
          {/* Live Companies Summary */}
-         <div className="bg-[#131B2B] border border-slate-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
-               <Building2 size={18} className="text-cyan-400" />
+         <div className="bg-card border border-white/5 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-neon-blue/5 rounded-full blur-3xl group-hover:bg-neon-blue/10 transition-colors"></div>
+            <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-3 relative z-10">
+               <div className="bg-neon-blue/10 p-2 rounded-lg border border-neon-blue/30">
+                 <Building2 size={18} className="text-neon-blue" />
+               </div>
                Target Companies Live Data
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-4 relative z-10">
                {companies.length === 0 ? (
                   <p className="text-sm text-slate-500 italic">No companies added yet. Head to Target Companies to add some.</p>
                ) : (
                   companies.slice(0, 4).map(c => (
-                     <div key={c.id} className="flex items-center justify-between p-3 rounded-xl bg-[#0B1120] border border-slate-800 hover:border-slate-700 transition-colors">
-                        <div className="flex items-center gap-3">
-                           <div className={`w-8 h-8 rounded shrink-0 flex items-center justify-center text-xs font-bold ${c.logoColor}`}>{c.logoText}</div>
-                           <span className="font-medium text-slate-200 text-sm">{c.name}</span>
+                     <div key={c.id} className="flex items-center justify-between p-4 rounded-xl bg-black/20 border border-white/5 hover:border-white/10 hover:bg-black/40 transition-all group/item">
+                        <div className="flex items-center gap-4">
+                           <div className={`w-10 h-10 rounded-lg shrink-0 flex items-center justify-center text-xs font-bold shadow-lg ${c.logoColor}`}>{c.logoText}</div>
+                           <div>
+                              <div className="font-bold text-slate-100 text-sm">{c.name}</div>
+                              <div className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">{c.industry || 'Tech'}</div>
+                           </div>
                         </div>
-                        <div className="flex items-center gap-3 text-xs text-slate-500">
-                           <span className="px-2 py-1 rounded bg-slate-800/50">{c.jobCount} Jobs</span>
-                           <span className="px-2 py-1 rounded bg-slate-800/50">{c.networkCount} Connects</span>
+                        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest">
+                           <span className="px-2.5 py-1.5 rounded-lg bg-white/5 text-slate-400 border border-white/5">{c.jobCount} Jobs</span>
+                           <span className="px-2.5 py-1.5 rounded-lg bg-neon-blue/5 text-neon-blue border border-neon-blue/10">{c.networkCount} Connects</span>
                         </div>
                      </div>
                   ))

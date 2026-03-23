@@ -41,51 +41,51 @@ export function AddCompanyModal({ onClose, onSave }: AddCompanyModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 transition-opacity p-4">
-      <div className="bg-white dark:bg-gray-900 w-full max-w-md shadow-2xl rounded-xl overflow-hidden flex flex-col border border-gray-200 dark:border-gray-800 animate-slide-in">
-        <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-800">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md transition-opacity p-4">
+      <div className="bg-card w-full max-w-md shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-2xl overflow-hidden flex flex-col border border-white/5 animate-slide-in">
+        <div className="flex items-center justify-between p-6 border-b border-white/5">
+          <h2 className="text-xl font-bold text-white tracking-tight">
             Add Target Company
           </h2>
-          <button onClick={onClose} className="p-2 -mr-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <button onClick={onClose} className="p-2 -mr-2 text-slate-400 hover:text-white rounded-full hover:bg-white/5 transition-colors">
             <X size={20} />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Company Name *</label>
-            <input required name="name" value={formData.name} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Acme Corp" />
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Company Name *</label>
+            <input required name="name" value={formData.name} onChange={handleChange} className="w-full px-4 py-2.5 border border-white/10 rounded-lg bg-black/20 text-white placeholder-slate-600 focus:ring-1 focus:ring-neon-blue focus:border-neon-blue outline-none transition-all" placeholder="Acme Corp" />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location</label>
-            <input name="location" value={formData.location} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="San Francisco, CA" />
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Location</label>
+            <input name="location" value={formData.location} onChange={handleChange} className="w-full px-4 py-2.5 border border-white/10 rounded-lg bg-black/20 text-white placeholder-slate-600 focus:ring-1 focus:ring-neon-blue focus:border-neon-blue outline-none transition-all" placeholder="San Francisco, CA" />
           </div>
 
           <div className="flex gap-4">
              <div className="flex-1">
-               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Industry</label>
-               <input name="industry" value={formData.industry} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Technology" />
+               <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Industry</label>
+               <input name="industry" value={formData.industry} onChange={handleChange} className="w-full px-4 py-2.5 border border-white/10 rounded-lg bg-black/20 text-white placeholder-slate-600 focus:ring-1 focus:ring-neon-blue focus:border-neon-blue outline-none transition-all" placeholder="Technology" />
              </div>
              <div>
-               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Color Marker</label>
-               <select name="logoColor" value={formData.logoColor} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500 outline-none">
-                  <option value="bg-blue-600">Blue</option>
-                  <option value="bg-purple-600">Purple</option>
-                  <option value="bg-red-600">Red</option>
-                  <option value="bg-green-600">Green</option>
-                  <option value="bg-orange-600">Orange</option>
-                  <option value="bg-teal-600">Teal</option>
+               <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Color Marker</label>
+               <select name="logoColor" value={formData.logoColor} onChange={handleChange} className="w-full px-4 py-2.5 border border-white/10 rounded-lg bg-black/20 text-white focus:ring-1 focus:ring-neon-blue focus:border-neon-blue outline-none transition-all cursor-pointer appearance-none">
+                  <option value="bg-blue-600" className="bg-[#0B1120]">Blue</option>
+                  <option value="bg-purple-600" className="bg-[#0B1120]">Purple</option>
+                  <option value="bg-red-600" className="bg-[#0B1120]">Red</option>
+                  <option value="bg-green-600" className="bg-[#0B1120]">Green</option>
+                  <option value="bg-orange-600" className="bg-[#0B1120]">Orange</option>
+                  <option value="bg-teal-600" className="bg-[#0B1120]">Teal</option>
                </select>
              </div>
           </div>
 
-          <div className="pt-4 mt-2 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div className="pt-6 mt-2 border-t border-white/5 flex justify-end gap-3">
+            <button type="button" onClick={onClose} className="px-5 py-2 text-xs font-bold uppercase tracking-widest text-slate-400 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 hover:text-white transition-all">
               Cancel
             </button>
-            <button type="submit" className="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm">
+            <button type="submit" className="px-6 py-2 text-xs font-bold uppercase tracking-widest text-white bg-neon-blue/20 border border-neon-blue rounded-lg hover:bg-neon-blue/40 shadow-[0_0_20px_rgba(0,242,255,0.2)] transition-all">
               Save Company
             </button>
           </div>

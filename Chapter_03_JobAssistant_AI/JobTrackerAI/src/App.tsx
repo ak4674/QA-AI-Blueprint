@@ -95,10 +95,10 @@ export default function App() {
   const TABS: TabType[] = ['Dashboard', 'My Jobs', 'Job Board', 'Target Companies', 'Agencies', 'My Network'];
 
   return (
-    <div className="flex flex-col h-screen font-sans text-slate-300 overflow-hidden" style={{ backgroundColor: '#0B1120' }}>
+    <div className="flex flex-col h-screen font-sans text-slate-300 overflow-hidden agentic-bg">
       
       {/* Top Header Navigation */}
-      <header className="flex-shrink-0 border-b border-slate-800/50 px-6 h-16 flex items-center justify-between z-10" style={{ backgroundColor: '#0B1120' }}>
+      <header className="flex-shrink-0 border-b border-white/5 px-6 h-16 flex items-center justify-between z-10 bg-card/50 backdrop-blur-md">
         <div className="flex items-center gap-12 h-full">
           {/* Logo */}
           <div className="flex items-center gap-2">
@@ -124,8 +124,8 @@ export default function App() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2 bg-[#131B2B] text-green-400 px-3 py-1.5 rounded-full text-xs font-medium border border-green-900/30">
-            <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
+          <div className="hidden md:flex items-center gap-2 bg-black/20 text-neon-green px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border border-neon-green/30 shadow-[0_0_10px_rgba(0,255,157,0.1)]">
+            <div className="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse"></div>
             3 new matches
           </div>
           
@@ -136,7 +136,7 @@ export default function App() {
               value={globalSearch}
               onChange={e => setGlobalSearch(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleGlobalSearch()}
-              className="pl-9 pr-4 py-1.5 bg-[#131B2B] border border-slate-800 rounded-lg text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 text-slate-200 placeholder-slate-500 w-48 transition-all"
+              className="pl-10 pr-4 py-2 bg-black/20 border border-white/10 rounded-xl text-sm focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 text-white placeholder-slate-600 w-56 transition-all shadow-inner"
             />
           </div>
 
@@ -146,11 +146,11 @@ export default function App() {
           </button>
           
           {currentUser ? (
-             <div className="w-8 h-8 rounded-full bg-cyan-900 flex items-center justify-center text-cyan-100 font-bold text-xs ring-2 ring-cyan-500/20 cursor-pointer shadow-[0_0_10px_rgba(6,182,212,0.3)]" title={`Logged in as ${currentUser.name}`}>
+             <div className="w-9 h-9 rounded-xl bg-neon-blue/20 border border-neon-blue/40 flex items-center justify-center text-neon-blue font-bold text-xs shadow-[0_0_20px_rgba(0,242,255,0.2)] cursor-pointer hover:bg-neon-blue/30 transition-all" title={`Logged in as ${currentUser.name}`}>
                {currentUser.name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().substring(0, 2)}
              </div>
           ) : (
-             <button onClick={() => setIsSignInOpen(true)} className="text-sm font-medium bg-cyan-500 hover:bg-cyan-400 text-[#0B1120] px-4 py-1.5 rounded-full transition-colors shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+             <button onClick={() => setIsSignInOpen(true)} className="text-xs font-bold uppercase tracking-widest bg-white/5 border border-white/10 hover:bg-white/10 text-white px-5 py-2.5 rounded-xl transition-all shadow-lg hover:shadow-white/5">
                 Sign In
              </button>
           )}
@@ -161,8 +161,8 @@ export default function App() {
       <div className="flex flex-1 overflow-hidden">
         
         {/* Tab Content Manager */}
-        <main className="flex-1 overflow-hidden relative" style={{ backgroundColor: '#0B1120' }}>
-          {activeTab === 'Dashboard' && <div className="absolute inset-0 bg-[#0B1120]"><DashboardTab onOpenLumi={openLumi} /></div>}
+        <main className="flex-1 overflow-hidden relative bg-transparent">
+          {activeTab === 'Dashboard' && <div className="absolute inset-0 bg-transparent"><DashboardTab onOpenLumi={openLumi} /></div>}
           
           {activeTab === 'My Jobs' && (
             <div className="absolute inset-0 p-6 flex flex-col gap-6 overflow-hidden">
@@ -211,10 +211,10 @@ export default function App() {
               </div>
             </div>
           )}
-          {activeTab === 'Job Board' && <div className="absolute inset-0 bg-[#0B1120]"><JobBoardTab onOpenLumi={openLumi} /></div>}
-          {activeTab === 'Target Companies' && <div className="absolute inset-0 bg-[#0B1120]"><TargetCompaniesTab onOpenLumi={openLumi} /></div>}
-          {activeTab === 'Agencies' && <div className="absolute inset-0 bg-[#0B1120]"><RecruitmentAgenciesTab onOpenLumi={openLumi} /></div>}
-          {activeTab === 'My Network' && <div className="absolute inset-0 bg-[#0B1120]"><MyNetworkTab /></div>}
+          {activeTab === 'Job Board' && <div className="absolute inset-0 bg-transparent"><JobBoardTab onOpenLumi={openLumi} /></div>}
+          {activeTab === 'Target Companies' && <div className="absolute inset-0 bg-transparent"><TargetCompaniesTab onOpenLumi={openLumi} /></div>}
+          {activeTab === 'Agencies' && <div className="absolute inset-0 bg-transparent"><RecruitmentAgenciesTab onOpenLumi={openLumi} /></div>}
+          {activeTab === 'My Network' && <div className="absolute inset-0 bg-transparent"><MyNetworkTab /></div>}
         </main>
       </div>
 

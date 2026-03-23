@@ -8,31 +8,31 @@ interface SignInModalProps {
 export function SignInModal({ onClose, onSignIn }: SignInModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity">
-      <div className="bg-[#131B2B] w-full max-w-md shadow-[0_0_50px_rgba(6,182,212,0.15)] rounded-2xl overflow-hidden flex flex-col border border-slate-700/50">
+      <div className="bg-card w-full max-w-md shadow-[0_0_50px_rgba(0,242,255,0.15)] rounded-2xl overflow-hidden flex flex-col border border-white/5 animate-slide-in">
         
         {/* Header */}
-        <div className="p-5 flex items-center justify-between border-b border-slate-800/80 bg-[#0B1120]">
+        <div className="p-6 flex items-center justify-between border-b border-white/5 bg-black/20">
           <div className="flex items-center gap-3">
-            <div className="bg-cyan-500/10 p-2 rounded-lg border border-cyan-500/30">
-              <LogIn className="text-cyan-400" size={20} />
+            <div className="bg-neon-blue/10 p-2 rounded-lg border border-neon-blue/30 shadow-[0_0_10px_rgba(0,242,255,0.1)]">
+              <LogIn className="text-neon-blue" size={20} />
             </div>
-            <h2 className="text-xl font-bold text-slate-100 font-mono tracking-tight">Sign In to <span className="text-cyan-400">JobVerse</span></h2>
+            <h2 className="text-xl font-bold text-white tracking-tight">Sign In to <span className="text-neon-blue">JobVerse</span></h2>
           </div>
-          <button onClick={onClose} className="text-slate-500 hover:text-cyan-400 hover:bg-cyan-500/10 p-1.5 rounded-full transition-colors">
+          <button onClick={onClose} className="p-2 -mr-2 text-slate-400 hover:text-white rounded-full hover:bg-white/5 transition-colors">
             <X size={20} />
           </button>
         </div>
 
         {/* Content Area */}
         <div className="p-6 space-y-6">
-          <p className="text-sm text-slate-400 text-center">
+          <p className="text-sm text-slate-400 text-center leading-relaxed">
             Connect your account to securely sync your job tracker data, target companies, and AI insights across sessions.
           </p>
 
           <div className="space-y-3">
             <button 
               onClick={() => { onSignIn({ name: 'Anand Kumar', email: 'aky.anand@gmail.com' }); onClose(); }}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white text-slate-900 rounded-xl font-semibold hover:bg-slate-100 transition-colors"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white text-slate-950 rounded-xl font-bold hover:bg-slate-200 shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -45,7 +45,7 @@ export function SignInModal({ onClose, onSignIn }: SignInModalProps) {
             
             <button 
               onClick={() => { onSignIn({ name: 'Anand Kumar', email: 'aky.anand@gmail.com' }); onClose(); }}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-slate-800 text-white rounded-xl font-semibold hover:bg-slate-700 transition-colors border border-slate-700"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-black/30 text-white rounded-xl font-bold hover:bg-black/50 transition-all border border-white/10 hover:border-white/20 transform hover:-translate-y-0.5 active:translate-y-0"
             >
               <Github className="w-5 h-5" />
               Continue with GitHub
@@ -54,28 +54,28 @@ export function SignInModal({ onClose, onSignIn }: SignInModalProps) {
 
           <div className="relative">
              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-800"></div>
+                <div className="w-full border-t border-white/5"></div>
              </div>
-             <div className="relative flex justify-center text-xs">
-                <span className="bg-[#131B2B] px-2 text-slate-500 uppercase tracking-widest">Or</span>
+             <div className="relative flex justify-center text-[10px]">
+                <span className="bg-card px-3 text-slate-500 uppercase tracking-[0.2em] font-bold">Or System Auth</span>
              </div>
           </div>
 
           <div className="space-y-4">
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-400">Email Address</label>
+            <div className="space-y-1.5 text-left">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
                 <input 
                   type="email" 
-                  placeholder="Enter your email" 
-                  className="w-full pl-9 pr-4 py-2 bg-[#0B1120] border border-slate-800 rounded-lg text-sm text-slate-200 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-all"
+                  placeholder="name@example.com" 
+                  className="w-full pl-10 pr-4 py-2.5 bg-black/20 border border-white/10 rounded-xl text-sm text-white focus:border-neon-blue focus:ring-1 focus:ring-neon-blue outline-none transition-all placeholder:text-slate-700"
                 />
               </div>
             </div>
             <button 
                onClick={() => { onSignIn({ name: 'Anand Kumar', email: 'aky.anand@gmail.com' }); onClose(); }}
-               className="w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-[#0B1120] rounded-lg font-bold transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+               className="w-full py-3 bg-neon-blue/20 hover:bg-neon-blue/30 text-neon-blue rounded-xl font-bold uppercase tracking-widest text-[11px] border border-neon-blue/40 shadow-[0_0_20px_rgba(0,242,255,0.15)] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
             >
                Email Magic Link
             </button>
