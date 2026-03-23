@@ -2,6 +2,10 @@
 
 A local-first, highly advanced Multi-Tab Job Pipeline and Networking ecosystem branded as **JobVerse**. Featuring a premium **Neon Agentic UI** with sophisticated blue/green gradients and restored deep dark card aesthetics. Manage your complete job hunting workflow, applications, targeted companies, recruitment agencies, and network contacts seamlessly inside your browser. No backend or cloud databases are required.
 
+## 🚀 Quick Links
+- **Official Feature Tour**: [Watch here](https://github.com/ak4674/QA-AI-Blueprint/blob/main/Chapter_03_JobAssistant_AI/JobTrackerAI/public/jobverse_official_tour.webp)
+- **LinkedIn Connection Demo**: [Watch here](https://github.com/ak4674/QA-AI-Blueprint/blob/main/Chapter_03_JobAssistant_AI/JobTrackerAI/public/jobverse_demo.webp)
+
 ## Core Features & Modules
 
 - **5-Tab Dashboard Structure**: Navigate instantly between the overview Dashboard, Kanban My Jobs, Target Companies, Recruitment Agencies, and My Network grids.
@@ -51,3 +55,6 @@ Navigate to `http://localhost:5174/` to launch the client. All actions are handl
 - `src/components/KanbanBoard.tsx`: Orchestrates the draggable Context environment.
 - `src/components/JobModal.tsx`: Slide-over UI layer for Add/Edit inputs.
 - `src/types.ts`: TS Interfaces shaping the core data formats globally natively supported across app states.
+
+---
+*JobVerse - Your Career, Orchestrated.*
