@@ -26,6 +26,22 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState<{name: string, email: string} | null>(null);
   const [isSignInOpen, setIsSignInOpen] = useState(false);
 
+  // Dynamic Header State
+  const [networkCount, setNetworkCount] = useState(0);
+
+  const fetchNetworkCount = async () => {
+    try {
+      const contacts = await getAllNetworkContacts();
+      setNetworkCount(contacts.length);
+    } catch (err) {
+      console.error('Failed to fetch network count:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchNetworkCount();
+  }, [activeTab]);
+
   // Global Search State
   const [globalSearch, setGlobalSearch] = useState('');
 
@@ -126,7 +142,7 @@ export default function App() {
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2 bg-black/20 text-neon-green px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border border-neon-green/30 shadow-[0_0_10px_rgba(0,255,157,0.1)]">
             <div className="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse"></div>
-            3 new matches
+            {networkCount} new network{networkCount !== 1 ? 's' : ''}
           </div>
           
           <div className="relative hidden sm:block">
