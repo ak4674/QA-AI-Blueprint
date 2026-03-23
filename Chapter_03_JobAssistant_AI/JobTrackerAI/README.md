@@ -1,17 +1,15 @@
 # JobVerse (formerly JobTrackerAI)
 
-A local-first, highly advanced Multi-Tab Job Pipeline and Networking ecosystem built with React, Vite, Tailwind CSS (v4), and IndexedDB. Manage your complete job hunting workflow, applications, targeted companies, recruitment agencies, and network contacts seamlessly inside your browser. No backend or cloud databases are required.
+A local-first, highly advanced Multi-Tab Job Pipeline and Networking ecosystem branded as **JobVerse**. Featuring a premium **Neon Agentic UI** with sophisticated blue/green gradients and restored deep dark card aesthetics. Manage your complete job hunting workflow, applications, targeted companies, recruitment agencies, and network contacts seamlessly inside your browser. No backend or cloud databases are required.
 
 ## Core Features & Modules
 
 - **5-Tab Dashboard Structure**: Navigate instantly between the overview Dashboard, Kanban My Jobs, Target Companies, Recruitment Agencies, and My Network grids.
-- **Lumi AI Insights**: A dynamic agent that scans your IndexedDB entries to formulate personalized networking and resume-modification prompts.
-- **Archiving & Phase Progression 3-Dots Menu**: Easily archive old jobs or move them through logical stages (`Saved` -> `Applied` -> `Screening`...) using built-in context dropdowns on every job card.
-- **Live Search & Filter**: Real-time algorithmic search hooks attached to the Kanban board without mutating the core DB pipeline.
-- **Authentication**: Simulated OAuth flow for user personalization and credential storage logic.
-- **Local Data Persistence**: All data is stored in the browser using IndexedDB via the `idb` library.
-- **Drag & Drop**: Powered by `@dnd-kit/core` for seamless interactions and sortable lists.
-- **Elegant & Minimal UI**: Utilizes modern UI tokens, agentic dark mode (`#0B1120`), and glassmorphism optimized for both mobile and desktop.
+- **Neon Agentic UI**: Futuristic radial gradients of **Neon Blue (#00f2ff)** and **Neon Green (#00ff9d)** with high-contrast `#0B1120` dashboards.
+- **Smart Omni-Search Routing**: A cross-entity navigation algorithm that identifies user intent. Pressing **Enter** automatically detects if queries match Network, Agency, or Jobs, and routes the user instantly.
+- **Lumi AI (Live)**: A production-grade bridge to the **Pollinations AI** live model for real-time career and networking strategy generation.
+- **Archiving & Phase Progression**: Rapid Job Lifecycle management via a 3-dots context menu on every card.
+- **Local Data Persistence**: All data is stored in the browser using IndexedDB via the `idb` library for maximum privacy and performance.
 
 ## Technology Stack
 

@@ -13,7 +13,9 @@ This document outlines the complete technological footprint, UI/UX structure, an
 - **Environment**: Optimized for zero-config Vercel deployment with built-in `vercel.json`
 
 ## User Interface & Aesthetic Design (UI/CSS)
-- **Theme**: Futuristic, Agentic Dark Theme (`#0B1120` base) highlighting neon cyan and deep purple accents.
+- **Theme**: Futuristic, **Neon Agentic UI** featuring a sophisticated radial gradient mix of **Neon Blue (#00f2ff)** and **Neon Green (#00ff9d)** backdrop.
+- **Deep Dark Dashboards**: Restores the premium "original" dashboard aesthetics (`#0B1120`) for all cards and modals, creating a high-contrast futuristic workspace.
+- **Neon Glow & Accents**: Interactive elements feature bespoke neon-blue glows, borders, and high-visibility active states.
 - **Micro-Animations**: Extensive use of Tailwind's `transition-all`, `hover:scale`, and `opacity` fades.
 - **Glassmorphism**: Modals (`SignInModal`, `LumiModal`) employ `backdrop-blur` techniques mimicking glass physical textures over the DOM.
 - **Responsive Layout**: 5-tab horizontal header-driven layout optimized for high-density wide data grids.
