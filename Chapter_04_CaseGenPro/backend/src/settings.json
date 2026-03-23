@@ -1,0 +1,11 @@
+{
+  "ollamaEndpoint": "http://localhost:11434",
+  "lmStudioEndpoint": "http://localhost:1234/v1",
+  "groqApiKey": "",
+  "openAIApiKey": "",
+  "claudeApiKey": "",
+  "geminiApiKey": "",
+  "selectedProvider": "ollama",
+  "ollamaModelName": "gemma3:1b",
+  "groqModelName": "openai/gpt-oss-120b"
+}
