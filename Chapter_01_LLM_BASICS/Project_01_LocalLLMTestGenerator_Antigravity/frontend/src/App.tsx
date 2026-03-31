@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Settings, MessageSquare, PlusCircle } from 'lucide-react';
+import { Settings, MessageSquare, PlusCircle, Trash2, Copy, Check } from 'lucide-react';
 import axios from 'axios';
 
 const API_BASE = 'http://localhost:3001/api';
@@ -11,6 +11,8 @@ function App() {
   const [generatedResult, setGeneratedResult] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<Provider>('ollama');
+  const [history, setHistory] = useState<any[]>([]);
+  const [copied, setCopied] = useState(false);
 
   const [settings, setSettings] = useState({
     ollamaUrl: 'http://localhost:11434',
@@ -33,7 +35,18 @@ function App() {
         }
       })
       .catch(err => console.error("Failed to load settings:", err));
+
+    fetchHistory();
   }, []);
+
+  const fetchHistory = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/history`);
+      setHistory(res.data);
+    } catch (err) {
+      console.error("Failed to fetch history:", err);
+    }
+  };
 
   const handleSaveSettings = async () => {
     setIsSaving(true);
@@ -72,12 +85,35 @@ function App() {
         provider: selectedProvider
       });
       setGeneratedResult(response.data.result);
+      fetchHistory(); // Refresh history
     } catch (error: any) {
       console.error("Generation error:", error);
       setGeneratedResult(`Error: ${error.response?.data?.error || error.message}`);
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleClearHistory = async () => {
+    if (!window.confirm('Are you sure you want to clear all history?')) return;
+    try {
+      await axios.delete(`${API_BASE}/history`);
+      setHistory([]);
+    } catch (err) {
+      console.error("Failed to clear history:", err);
+    }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(generatedResult);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleHistoryItemClick = (item: any) => {
+    setRequirementText(item.requirement);
+    setGeneratedResult(item.generated_tests);
+    setActiveTab('chat');
   };
 
   return (
@@ -95,16 +131,31 @@ function App() {
         </div>
 
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
-          {/* History Item Placeholder */}
-          <button className="w-full text-left px-3 py-2 rounded-md bg-neutral-800 text-sm text-neutral-300 hover:bg-neutral-700 transition">
-            Login Page API Tests
-          </button>
-          <button className="w-full text-left px-3 py-2 rounded-md hover:bg-neutral-800 text-sm text-neutral-400 transition">
-            User Profile E2E Tests
-          </button>
+          {history.length > 0 ? (
+            history.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleHistoryItemClick(item)}
+                className="w-full text-left px-3 py-2 rounded-md bg-neutral-800 text-sm text-neutral-300 hover:bg-neutral-700 transition truncate"
+              >
+                {item.title}
+              </button>
+            ))
+          ) : (
+            <p className="text-xs text-neutral-500 text-center mt-4">No history yet.</p>
+          )}
         </div>
 
         <div className="p-4 border-t border-neutral-800 flex flex-col gap-2">
+          {history.length > 0 && (
+            <button
+              onClick={handleClearHistory}
+              className="flex items-center gap-2 px-3 py-2 rounded-md text-red-500 hover:bg-red-500/10 transition-colors text-sm mb-2"
+            >
+              <Trash2 size={16} />
+              <span>Clear History</span>
+            </button>
+          )}
           <button
             onClick={() => setActiveTab('chat')}
             className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${activeTab === 'chat' ? 'bg-emerald-500/10 text-emerald-400' : 'text-neutral-400 hover:bg-neutral-800 hover:text-white'}`}
@@ -136,8 +187,20 @@ function App() {
 
               {/* AI Message Area */}
               {(generatedResult || isGenerating) && (
-                <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-5 max-w-4xl w-full self-center shadow-sm">
-                  <h2 className="text-lg font-semibold text-emerald-400 mb-2">Test Cases Generated ({selectedProvider})</h2>
+                <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-5 max-w-4xl w-full self-center shadow-sm relative group">
+                  <div className="flex justify-between items-start mb-2">
+                    <h2 className="text-lg font-semibold text-emerald-400">Test Cases Generated ({selectedProvider})</h2>
+                    {generatedResult && !isGenerating && (
+                      <button 
+                        onClick={handleCopy}
+                        className="p-1.5 rounded-md hover:bg-neutral-800 text-neutral-400 hover:text-white transition-all flex items-center gap-1.5 text-xs"
+                        title="Copy to clipboard"
+                      >
+                        {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+                        {copied ? 'Copied!' : 'Copy'}
+                      </button>
+                    )}
+                  </div>
                   <div className="text-sm text-neutral-300 space-y-3">
                     {isGenerating ? (
                       <div className="flex items-center gap-3">

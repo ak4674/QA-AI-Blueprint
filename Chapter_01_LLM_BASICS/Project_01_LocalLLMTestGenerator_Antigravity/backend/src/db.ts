@@ -60,3 +60,20 @@ export async function getAllSettings(): Promise<Record<string, string>> {
     }
     return settings;
 }
+export async function saveHistory(title: string, requirement: string, generatedTests: string): Promise<void> {
+    const database = await getDb();
+    await database.run(
+        'INSERT INTO history (title, requirement, generated_tests) VALUES (?, ?, ?)',
+        [title, requirement, generatedTests]
+    );
+}
+
+export async function getHistory(): Promise<any[]> {
+    const database = await getDb();
+    return await database.all('SELECT * FROM history ORDER BY created_at DESC');
+}
+
+export async function clearHistory(): Promise<void> {
+    const database = await getDb();
+    await database.run('DELETE FROM history');
+}

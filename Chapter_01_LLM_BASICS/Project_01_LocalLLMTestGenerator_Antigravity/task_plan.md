@@ -2,8 +2,8 @@
 
 ## Phases
 1. **[Completed] Discovery Phase** -> Gathered requirements and defined goals.
-2. **[In Progress] Blueprint & Architecture** -> Creating approved blueprint (`implementation_plan.md`).
-3. **[Pending] Implementation Phase** -> Setting up Node.js backend and React frontend, implementing UI and LLM integrations.
+2. **[Completed] Blueprint & Architecture** -> Created approved blueprint (`implementation_plan.md`).
+3. **[In Progress] Implementation Phase** -> Setting up Node.js backend and React frontend, implementing UI and history persistence.
 4. **[Pending] Verification Phase** -> Testing API connections, prompt responses, and Jira formatting.
 
 ## Goals
@@ -14,8 +14,9 @@
 
 ## Checklists
 - [x] Answer Discovery Questions
-- [ ] Create and approve project blueprint (`implementation_plan.md`)
-- [ ] Initialize repository structure (Frontend & Backend)
-- [ ] Develop Settings UI & Backend API connection handlers
-- [ ] Develop Chat UI & Prompt Engineering for Jira format
-- [ ] Final testing and polish
+- [x] Create and approve project blueprint (`implementation_plan.md`)
+- [x] Initialize repository structure (Frontend & Backend)
+- [x] Implement history persistence (Backend/Frontend)
+- [x] Develop Settings UI details & Backend API connection handlers
+- [x] Finalize UI polish (Copy, Clear, Status)
+- [ ] Final end-to-end verification

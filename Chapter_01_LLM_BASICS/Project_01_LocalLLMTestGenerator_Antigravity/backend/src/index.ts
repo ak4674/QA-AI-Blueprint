@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { getAllSettings, setSetting } from './db';
+import { getAllSettings, setSetting, getHistory, saveHistory, clearHistory } from './db';
 import { generateTestCases } from './llmController';
 
 dotenv.config();
@@ -54,9 +54,36 @@ app.post('/api/generate', async (req: Request, res: Response) => {
         }
 
         const generatedTests = await generateTestCases(requirement, provider);
+        
+        // Save to history (unless it's a test connection)
+        if (requirement !== "Ping connection") {
+            const title = requirement.slice(0, 30) + (requirement.length > 30 ? '...' : '');
+            await saveHistory(title, requirement, generatedTests);
+        }
+
         res.json({ result: generatedTests });
     } catch (error: any) {
         res.status(500).json({ error: error.message || 'Generation failed' });
+    }
+});
+
+app.get('/api/history', async (req: Request, res: Response) => {
+    try {
+        const history = await getHistory();
+        res.json(history);
+    } catch (error) {
+        console.error('Error fetching history:', error);
+        res.status(500).json({ error: 'Failed to fetch history' });
+    }
+});
+
+app.delete('/api/history', async (req: Request, res: Response) => {
+    try {
+        await clearHistory();
+        res.json({ message: 'History cleared successfully' });
+    } catch (error) {
+        console.error('Error clearing history:', error);
+        res.status(500).json({ error: 'Failed to clear history' });
     }
 });
 
